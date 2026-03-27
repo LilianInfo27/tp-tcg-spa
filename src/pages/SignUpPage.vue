@@ -31,21 +31,34 @@
 </template>
 
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+import { ROUTES } from '@/router'
 import { useAuthStore } from '@/stores/auth.store'
+
 const authStore = useAuthStore()
+const router = useRouter()
+const message = useMessage()
 
 const username = ref('')
 const email = ref('')
 const password = ref('')
 
 const handleSignUp = async () => {
-  authStore.signUp({
-    username: username.value,
-    email: email.value,
-    password: password.value,
-  })
+  try {
+    await authStore.signUp({
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    })
+    await router.push(ROUTES.HOME)
+  } catch (error) {
+    message.error(
+      error instanceof Error ? error.message : 'Inscription impossible.',
+    )
+  }
 }
 </script>
 

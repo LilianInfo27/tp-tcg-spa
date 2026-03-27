@@ -26,6 +26,12 @@ const request = async <T>(path: string, options: RequestInit = {}) => {
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers })
 
   if (!res.ok) {
+    if (res.status === 401) {
+      // Prevent stale local auth state after token expiry/reset backend.
+      storage.remove('token', 'user')
+      throw new Error('Session expirée. Reconnectez-vous puis réessayez.')
+    }
+
     const data = await res.json().catch(() => ({}))
     throw new Error(
       (data as { message?: string }).message || `Erreur ${res.status}`,

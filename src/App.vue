@@ -20,6 +20,18 @@ const authStore = useAuthStore()
 
 <style>
 body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(251, 191, 36, 0.18), transparent 26%),
+    linear-gradient(180deg, #fffdf8, #eef5f7 55%, #f6f8fb);
+  color: #172033;
+}
+
+body {
   padding: 0 20px;
+}
+
+#app {
+  min-height: 100vh;
 }
 </style>
