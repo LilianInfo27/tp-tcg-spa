@@ -1,10 +1,11 @@
 import type { DeckCard } from './card.js'
+import type { DeckWithCard } from './game.js'
 
 export interface Deck {
   id: number
   name: string
   userId: number
-  cards: DeckCard[]
+  cards: (DeckCard | DeckWithCard)[]
 }
 
 export interface DeckPayload {

@@ -18,7 +18,7 @@
         placeholder="Password"
       />
     </NFormItem>
-    <NButton type="primary" attr-type="submit" @click="handleSignUp"
+    <NButton type="primary" attr-type="submit" :loading="isLoading"
       >S'inscrire</NButton
     >
     <div class="footer">
@@ -31,21 +31,43 @@
 </template>
 
 <script setup lang="ts">
+import { useMessage } from 'naive-ui'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+import { ROUTES } from '@/router'
 import { useAuthStore } from '@/stores/auth.store'
+
+const router = useRouter()
+const message = useMessage()
 const authStore = useAuthStore()
 
 const username = ref('')
 const email = ref('')
 const password = ref('')
+const isLoading = ref(false)
 
 const handleSignUp = async () => {
-  authStore.signUp({
-    username: username.value,
-    email: email.value,
-    password: password.value,
-  })
+  if (isLoading.value) {
+    return
+  }
+
+  isLoading.value = true
+  try {
+    await authStore.signUp({
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    })
+    message.success('Compte cree avec succes.')
+    await router.push(ROUTES.HOME)
+  } catch (error) {
+    message.error(
+      error instanceof Error ? error.message : 'Impossible de creer le compte.',
+    )
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
