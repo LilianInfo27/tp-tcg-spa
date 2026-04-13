@@ -1,10 +1,18 @@
 export default {
   extends: ['@commitlint/config-conventional'],
+  parserPreset: {
+    parserOpts: {
+      // Accept both "feat: title" and "add title" formats.
+      headerPattern: /^(\w+)(?:\(([^)]+)\))?:?\s(.+)$/,
+      headerCorrespondence: ['type', 'scope', 'subject'],
+    },
+  },
   rules: {
     'type-enum': [
       2,
       'always',
       [
+        'add',
         'feat',
         'fix',
         'docs',
