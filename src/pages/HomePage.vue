@@ -1,5 +1,15 @@
 <template>
   <div class="container">
-    <NEmpty description="Page d'accueil à implémenter (tickets 2 et 3)" />
+    <LobbyPanel />
   </div>
 </template>
+
+<script setup lang="ts">
+import LobbyPanel from '@/components/game/LobbyPanel.vue'
+</script>
+
+<style scoped>
+.container {
+  min-height: calc(100vh - 100px);
+}
+</style>
