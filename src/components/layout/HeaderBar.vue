@@ -6,6 +6,7 @@
     <NSpace justify="space-between" align="center" style="height: 56px">
       <NSpace align="center" :size="16">
         <RouterLink to="/">TCG SPA</RouterLink>
+        <RouterLink to="/decks/new">Creer un deck</RouterLink>
         <NButton
           tag="a"
           :href="`${apiBaseUrl.replace('/api', '')}/api-docs`"
