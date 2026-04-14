@@ -23,10 +23,10 @@ jobs:
               fs.readFileSync('.github/seeds/issues.json', 'utf8')
             );
 
-            console.log(`📝 Found ${issues.length} issues in the seed file`);
+            console.log(`Found ${issues.length} issues in the seed file`);
 
-            // 1️⃣ Fermer et verrouiller toutes les issues existantes
-            console.log('\n🗑️  Closing existing issues...');
+            // 1. Fermer et verrouiller toutes les issues existantes
+            console.log('\nClosing existing issues...');
             const existingIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -52,13 +52,13 @@ jobs:
                   lock_reason: 'resolved'
                 });
               }
-              console.log(`  🗑️  Closed and locked issue #${issue.number}: "${issue.title}"`);
+              console.log(`  Closed and locked issue #${issue.number}: "${issue.title}"`);
               closedCount++;
             }
-            console.log(`✅ Closed and locked ${closedCount} existing issues`);
+            console.log(`Closed and locked ${closedCount} existing issues`);
 
-            // 2️⃣ Créer les nouvelles issues
-            console.log('\n📝 Creating new issues...');
+            // 2. Creer les nouvelles issues
+            console.log('\nCreating new issues...');
             let createdCount = 0;
 
             for (const issueData of issues) {
@@ -69,9 +69,9 @@ jobs:
                 body: issueData.body,
                 labels: issueData.labels || []
               });
-              console.log(`  ✅ Issue created: "${issueData.title}" (#${newIssue.data.number})`);
+              console.log(`  Issue created: "${issueData.title}" (#${newIssue.data.number})`);
               createdCount++;
             }
 
-            console.log(`\n📊 Summary: ${closedCount} closed, ${createdCount} created`);
+            console.log(`\nSummary: ${closedCount} closed, ${createdCount} created`);
 
