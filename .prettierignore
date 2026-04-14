@@ -3,4 +3,4 @@ dist
 .cache
 *.tsbuildinfo
 package-lock.json
-.github/workflows/setup-repo.yml
+**/.github/workflows/setup-repo.yml
