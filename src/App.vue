@@ -1,9 +1,9 @@
 <template>
   <NConfigProvider>
     <NMessageProvider>
-      <NLayout>
+      <NLayout style="min-height: 100vh">
         <HeaderBar v-if="authStore.isAuthenticated" />
-        <NLayoutContent>
+        <NLayoutContent :content-style="{ padding: '16px' }">
           <RouterView />
         </NLayoutContent>
       </NLayout>
@@ -19,7 +19,14 @@ const authStore = useAuthStore()
 </script>
 
 <style>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  padding: 0 20px;
+  margin: 0;
+  padding: 0;
 }
 </style>
